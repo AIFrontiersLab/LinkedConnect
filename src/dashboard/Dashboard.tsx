@@ -92,7 +92,7 @@ function DashboardBody({ route, navigate }: { route: Route; navigate: (hash: str
 
   useEffect(() => {
     const label = TABS.find((t) => t.id === route.tab)?.label ?? "";
-    document.title = `${label} · LinkedMaven Connect`;
+    document.title = `${label} · LinkedConnect`;
   }, [route.tab]);
 
   const openContact = useCallback((id: string) => navigate(`#/${route.tab}/contact/${encodeURIComponent(id)}`), [navigate, route.tab]);

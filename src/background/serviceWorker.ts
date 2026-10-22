@@ -38,7 +38,7 @@ function reconcile(reason: string): Promise<void> {
         await reconcileOnce(reason);
       } while (rerun);
     } catch (err) {
-      console.error("[LinkedMaven] reconcile failed", reason, err);
+      console.error("[LinkedConnect] reconcile failed", reason, err);
     } finally {
       running = null;
     }
@@ -81,8 +81,8 @@ async function updateBadge(db: Database, now: Date) {
   await chrome.action.setTitle({
     title:
       count === 0
-        ? "LinkedMaven Connect: nothing needs attention"
-        : `LinkedMaven Connect: ${count} contact${count === 1 ? "" : "s"} need attention (${ready} ready to message, ${due} follow-up${due === 1 ? "" : "s"} due)`,
+        ? "LinkedConnect: nothing needs attention"
+        : `LinkedConnect: ${count} contact${count === 1 ? "" : "s"} need attention (${ready} ready to message, ${due} follow-up${due === 1 ? "" : "s"} due)`,
   });
 }
 
@@ -113,11 +113,11 @@ async function showNotification(n: PlannedNotification, reason: string) {
       iconUrl: chrome.runtime.getURL("icons/icon-128.png"),
       title: n.title,
       message: n.message,
-      contextMessage: "LinkedMaven Connect",
+      contextMessage: "LinkedConnect",
       priority: 1,
     });
   } catch (err) {
-    console.warn("[LinkedMaven] notification failed", reason, err);
+    console.warn("[LinkedConnect] notification failed", reason, err);
   }
 }
 
@@ -139,7 +139,7 @@ function addNotificationListeners() {
   });
 }
 
-// ---- Right-click "Add to LinkedMaven Connect" ----
+// ---- Right-click "Add to LinkedConnect" ----
 // Chrome passes only the page/link URL and the text the user highlighted; the page is never read.
 
 const MENU_ID = "lmc-add-contact";
@@ -149,7 +149,7 @@ function createContextMenu() {
   // profile links elsewhere on LinkedIn (search results, "More profiles", ...).
   const documentUrlPatterns = ["https://*.linkedin.com/*", "https://linkedin.com/*"];
   chrome.contextMenus.removeAll(() => {
-    chrome.contextMenus.create({ id: MENU_ID, title: "Add to LinkedMaven Connect", contexts: ["selection", "page", "link"], documentUrlPatterns });
+    chrome.contextMenus.create({ id: MENU_ID, title: "Add to LinkedConnect", contexts: ["selection", "page", "link"], documentUrlPatterns });
     // Headlines often don't name the company; highlight it (e.g. the company box) and send it to the field.
     chrome.contextMenus.create({ id: `${MENU_ID}:company`, title: "Use highlighted text as company", contexts: ["selection"], documentUrlPatterns });
     chrome.contextMenus.create({ id: `${MENU_ID}:role`, title: "Use highlighted text as role", contexts: ["selection"], documentUrlPatterns });
@@ -187,7 +187,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   try {
     await getRepository().mutate(() => undefined);
   } catch (err) {
-    console.error("[LinkedMaven] initial migration failed", err);
+    console.error("[LinkedConnect] initial migration failed", err);
   }
   await ensureSweepAlarm();
   await reconcile(`installed:${details.reason}`);

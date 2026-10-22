@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "LinkedMaven Connect",
-  "short_name": "LinkedMaven",
+  "name": "LinkedConnect",
+  "short_name": "LinkedConnect",
   "version": "1.0.0",
   "description": "Track LinkedIn connection requests you send, confirm acceptances manually and follow up on time. All data stays in this Chrome profile.",
   "minimum_chrome_version": "116",
   "action": {
-    "default_title": "LinkedMaven Connect",
+    "default_title": "LinkedConnect",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon-16.png",

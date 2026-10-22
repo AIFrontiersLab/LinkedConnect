@@ -54,7 +54,7 @@ export function TodayView({
             </button>
           </div>
           <p className="small muted">
-            Acceptances you confirmed manually but haven't opened since. LinkedMaven Connect doesn't detect acceptances on its own.
+            Acceptances you confirmed manually but haven't opened since. LinkedConnect doesn't detect acceptances on its own.
           </p>
           <ul className="attention-list">
             {fresh.map((c) => (
@@ -82,7 +82,7 @@ export function TodayView({
               </button>
             }
           >
-            After you send a request on LinkedIn, paste the person's profile URL here. When they accept, mark it, and LinkedMaven Connect
+            After you send a request on LinkedIn, paste the person's profile URL here. When they accept, mark it, and LinkedConnect
             will help you send a timely follow-up. Want to look around first? Load demo data in Settings.
           </EmptyState>
         ) : (

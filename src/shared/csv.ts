@@ -87,5 +87,5 @@ export function contactsToCsv(contacts: readonly Contact[], tz: string, now: Dat
 }
 
 export function csvFileName(today: string): string {
-  return `linkedmaven-connections-${today}.csv`;
+  return `linkedconnect-connections-${today}.csv`;
 }

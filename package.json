@@ -1,8 +1,8 @@
 {
-  "name": "linkedmaven-connect",
+  "name": "linkedconnect",
   "version": "1.0.0",
   "private": true,
-  "description": "LinkedMaven Connect: a local Chrome extension for tracking LinkedIn connection requests and follow-ups",
+  "description": "LinkedConnect: a local Chrome extension for tracking LinkedIn connection requests and follow-ups",
   "type": "module",
   "engines": {
     "node": ">=20"

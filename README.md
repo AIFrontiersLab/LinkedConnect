@@ -1,4 +1,4 @@
-# LinkedMaven Connect
+# LinkedConnect
 
 **Track LinkedIn connection requests, see who accepted, and follow up on time.** It's a Chrome extension. Your data stays in your own browser, with no account, server or subscription.
 
@@ -44,7 +44,7 @@ You only need to do this once.
 3. In Chrome, open **chrome://extensions**.
 4. Turn on **Developer mode** (top-right).
 5. Click **Load unpacked** and select the **`dist`** folder.
-6. Click the puzzle-piece icon in the toolbar and **pin LinkedMaven Connect** so its icon is always visible.
+6. Click the puzzle-piece icon in the toolbar and **pin LinkedConnect** so its icon is always visible.
 
 **Updating later:** run `npm run build` again, then click the ↻ reload icon on the extension's card in chrome://extensions. Your contacts are kept.
 
@@ -66,14 +66,14 @@ Send your connection request on LinkedIn as usual. Then add the person in one of
 ### A. Right-click on their profile (fastest)
 
 1. On their LinkedIn profile, **highlight their name and headline**.
-2. **Right-click** and choose **LinkedMaven Connect → Add to LinkedMaven Connect**.
+2. **Right-click** and choose **LinkedConnect → Add to LinkedConnect**.
 3. The popup opens with the **profile URL, name, role, company** and a **suggested category** filled in. Check them and click **Save connection**.
 
 <img src="docs/images/popup-add-from-selection.png" alt="Popup filled from highlighted text" width="360">
 
 **Headline doesn't name the company?** Many headlines don't (e.g. "Robotics, Construction, Automation"). Highlight the company name, for example in the box next to their name or in their Experience section. Then right-click and choose **Use highlighted text as company**. It goes into the same entry you started. **Use highlighted text as role** works the same way.
 
-You can also right-click **a link to someone's profile** anywhere on LinkedIn (search results, "More profiles") and choose **Add to LinkedMaven Connect**.
+You can also right-click **a link to someone's profile** anywhere on LinkedIn (search results, "More profiles") and choose **Add to LinkedConnect**.
 
 ### B. Click the toolbar icon while on their profile
 
@@ -191,7 +191,7 @@ Under **Default template by category**, choose which template each category star
 
 **Export to Excel (CSV)**
 - **Export view (CSV)** above any list exports what you're looking at. **Settings → Export all contacts (CSV)** exports everything.
-- The file is named `linkedmaven-connections-YYYY-MM-DD.csv` and opens cleanly in Excel (accents, commas and line breaks intact).
+- The file is named `linkedconnect-connections-YYYY-MM-DD.csv` and opens cleanly in Excel (accents, commas and line breaks intact).
 - It's a snapshot. It doesn't stay in sync with Excel.
 
 **Backup and restore (JSON)**

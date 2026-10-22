@@ -363,7 +363,7 @@ function StorageInfo() {
             <button
               type="button"
               className="btn btn-sm"
-              onClick={() => downloadFile("linkedmaven-quarantine.json", JSON.stringify(quarantine, null, 2), "application/json")}
+              onClick={() => downloadFile("linkedconnect-quarantine.json", JSON.stringify(quarantine, null, 2), "application/json")}
             >
               Download set-aside records
             </button>

@@ -146,7 +146,7 @@ function AcceptDialog({ contact, onClose }: { contact: Contact; onClose: () => v
       title="Confirm acceptance"
       description={
         <>
-          Confirm that <strong>{contact.fullName}</strong> accepted your connection request on LinkedIn. LinkedMaven Connect
+          Confirm that <strong>{contact.fullName}</strong> accepted your connection request on LinkedIn. LinkedConnect
           doesn't check LinkedIn; this is recorded as a manual confirmation.
         </>
       }

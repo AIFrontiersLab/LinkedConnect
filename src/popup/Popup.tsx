@@ -104,7 +104,7 @@ function PopupBody() {
         </details>
         <p className="small muted">
           Acceptances are confirmed manually. When you open this popup, only the current tab's address and title are used to
-          suggest details. LinkedMaven Connect never reads page content or sends anything for you.
+          suggest details. LinkedConnect never reads page content or sends anything for you.
         </p>
       </main>
     </div>

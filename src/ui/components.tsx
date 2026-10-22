@@ -52,7 +52,7 @@ export function Brand({ compact = false }: { compact?: boolean }) {
     <div className="brand">
       <img src="icons/icon-48.png" alt="" width={compact ? 24 : 28} height={compact ? 24 : 28} />
       <span className="brand-name">
-        LinkedMaven <span>Connect</span>
+        Linked<span>Connect</span>
       </span>
     </div>
   );

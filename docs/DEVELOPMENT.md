@@ -1,4 +1,4 @@
-# LinkedMaven Connect: developer notes
+# LinkedConnect: developer notes
 
 ## Commands
 
@@ -52,7 +52,7 @@ src/
 - [ ] Pin the extension; the popup opens with an empty state and no fake contacts.
 - [ ] Add a contact from the popup with a URL like `https://uk.linkedin.com/in/someone/?trk=x`; it is saved as `https://www.linkedin.com/in/someone` with a yellow **Request sent** badge.
 - [ ] On a LinkedIn profile tab, clicking the icon prefills the URL and name. Typing a company, switching tabs and reopening the popup restores what you typed.
-- [ ] On a profile, highlight the name and headline, right-click, choose **Add to LinkedMaven Connect**: the popup opens with URL, name, role and company filled in.
+- [ ] On a profile, highlight the name and headline, right-click, choose **Add to LinkedConnect**: the popup opens with URL, name, role and company filled in.
 - [ ] Adding the same URL again (in a different case or form) offers **Open existing record** / **Update it**.
 - [ ] `https://linkedin.com.evil.com/in/x` and `https://www.linkedin.com/company/x` are rejected.
 - [ ] Quit Chrome completely and reopen it; the contact is still there.

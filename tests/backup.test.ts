@@ -111,3 +111,13 @@ describe("merge and replace", () => {
     expect(replacing.summary.contactsRemoved).toBe(1);
   });
 });
+
+describe("legacy backups", () => {
+  it("accepts backups made under the old LinkedMaven Connect name", () => {
+    const legacy = JSON.parse(JSON.stringify(createBackup(makeDb([makeContact()]), NOW)));
+    legacy.format = "linkedmaven-connect-backup";
+    const r = parseBackup(JSON.stringify(legacy));
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.backup.format).toBe("linkedconnect-backup");
+  });
+});

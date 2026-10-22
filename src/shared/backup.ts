@@ -18,7 +18,9 @@ import { normalizeProfileUrl } from "./profileUrl";
 import { newId } from "./ids";
 import { validateTimeline } from "./lifecycle";
 
-export const BACKUP_FORMAT = "linkedmaven-connect-backup";
+export const BACKUP_FORMAT = "linkedconnect-backup";
+/** Backups made before the rename from "LinkedMaven Connect" are still accepted. */
+const LEGACY_BACKUP_FORMATS = ["linkedmaven-connect-backup"] as const;
 export const MAX_BACKUP_BYTES = 20 * 1024 * 1024;
 
 export interface BackupFile {
@@ -48,11 +50,11 @@ export function createBackup(db: Database, now: Date): BackupFile {
 }
 
 export function backupFileName(today: string): string {
-  return `linkedmaven-backup-${today}.json`;
+  return `linkedconnect-backup-${today}.json`;
 }
 
 const envelopeSchema = z.object({
-  format: z.literal(BACKUP_FORMAT),
+  format: z.enum([BACKUP_FORMAT, ...LEGACY_BACKUP_FORMATS]),
   schemaVersion: z.number().int(),
   exportedAt: z.string(),
   data: z.object({
@@ -72,7 +74,7 @@ function issue(prefix: string, err: z.ZodError): string {
 
 /** Parses and strictly validates a backup file's text. Never touches stored data. */
 export function parseBackup(text: string): ParseBackupResult {
-  if (text.length > MAX_BACKUP_BYTES) return { ok: false, error: "The file is too large to be a LinkedMaven backup." };
+  if (text.length > MAX_BACKUP_BYTES) return { ok: false, error: "The file is too large to be a LinkedConnect backup." };
   let raw: unknown;
   try {
     raw = JSON.parse(text.replace(/^﻿/, ""));
@@ -80,7 +82,7 @@ export function parseBackup(text: string): ParseBackupResult {
     return { ok: false, error: "The file isn't valid JSON." };
   }
   const env = envelopeSchema.safeParse(raw);
-  if (!env.success) return { ok: false, error: "This isn't a LinkedMaven Connect backup file." };
+  if (!env.success) return { ok: false, error: "This isn't a LinkedConnect backup file." };
   const { schemaVersion, data } = env.data;
   if (schemaVersion > SCHEMA_VERSION) {
     return { ok: false, error: `This backup was made by a newer version (schema ${schemaVersion}). Update the extension first.` };

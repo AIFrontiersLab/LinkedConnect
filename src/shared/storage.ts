@@ -10,6 +10,7 @@ import { CorruptDataError, FutureSchemaError, createEmptyDatabase, migrateDataba
 
 export const DB_KEY = "lmc:db";
 export const DRAFTS_KEY = "lmc:drafts";
+// Kept from the original "LinkedMaven Connect" name so an old and new build never write concurrently.
 const LOCK_NAME = "linkedmaven-connect-db";
 
 export interface KeyValueStore {

@@ -261,7 +261,7 @@ const [csvDl] = await Promise.all([dash.waitForEvent("download"), dash.getByRole
 const csvPath = join(OUT, csvDl.suggestedFilename());
 await csvDl.saveAs(csvPath);
 const csv = readFileSync(csvPath, "utf8");
-check(/^linkedmaven-connections-\d{4}-\d{2}-\d{2}\.csv$/.test(csvDl.suggestedFilename()), `csv filename ${csvDl.suggestedFilename()}`);
+check(/^linkedconnect-connections-\d{4}-\d{2}-\d{2}\.csv$/.test(csvDl.suggestedFilename()), `csv filename ${csvDl.suggestedFilename()}`);
 check(csv.charCodeAt(0) === 0xfeff && csv.includes("\r\n"), "csv has BOM and CRLF");
 check(csv.includes(`"'=Acme, Inc."`), "csv neutralizes formula + quotes comma");
 

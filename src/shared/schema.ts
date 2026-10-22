@@ -118,7 +118,7 @@ export class FutureSchemaError extends Error {
   constructor(public readonly found: number) {
     super(
       `Your saved data uses schema version ${found}, which is newer than this extension supports (${SCHEMA_VERSION}). ` +
-        "Update LinkedMaven Connect; no changes will be written until then.",
+        "Update LinkedConnect; no changes will be written until then.",
     );
   }
 }
