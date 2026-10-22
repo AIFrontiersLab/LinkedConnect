@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedMaven Connect",
+  "short_name": "LinkedMaven",
+  "version": "1.0.0",
+  "description": "Track LinkedIn connection requests you send, confirm acceptances manually and follow up on time. All data stays in this Chrome profile.",
+  "minimum_chrome_version": "116",
+  "action": {
+    "default_title": "LinkedMaven Connect",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": ["storage", "alarms", "activeTab", "contextMenus"],
+  "optional_permissions": ["notifications"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
