@@ -15,6 +15,7 @@ describe("active tab prefill", () => {
     expect(prefillFromTab({ url: "https://www.linkedin.com/in/jane-doe/?miniProfileUrn=x", title: "(2) Jane Doe | LinkedIn" })).toEqual({
       profileUrl: "https://www.linkedin.com/in/jane-doe",
       fullName: "Jane Doe",
+      selectionText: "",
     });
     expect(prefillFromTab({ url: "https://www.linkedin.com/company/acme", title: "Acme | LinkedIn" })).toBeNull();
     expect(prefillFromTab({ url: "https://linkedin.com.evil.com/in/jane", title: "Jane | LinkedIn" })).toBeNull();

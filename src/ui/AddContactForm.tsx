@@ -119,7 +119,10 @@ export function AddContactForm({ onOpenContact, onMarkAccepted, autoFocus, prefi
         setOrigin("draft");
       } else if (prefillFromActiveTab) {
         const tab = await readActiveTabPrefill();
-        if (!cancelled && tab) {
+        if (!cancelled && tab?.selectionText.trim()) {
+          // Highlighted the profile, then clicked the icon: same as right-click → Add.
+          applyPending({ profileUrl: tab.profileUrl, titleName: tab.fullName, selectionText: tab.selectionText, createdAt: Date.now() });
+        } else if (!cancelled && tab) {
           setForm((f) => ({ ...f, profileUrl: tab.profileUrl, fullName: f.fullName || tab.fullName }));
           setOrigin("tab");
         }

@@ -1,5 +1,6 @@
-// Prefill for the "Add connection" form. Only the active tab's URL and title are read, and only
-// when the user opens the popup (the `activeTab` permission). Page content is never read.
+// Prefill for the "Add connection" form, only when the user acts (popup click or right-click,
+// via `activeTab`): the tab's URL and title, and the text the user highlighted. Nothing else on
+// the page is read.
 
 import { normalizeProfileUrl } from "./profileUrl";
 
@@ -18,19 +19,36 @@ export function nameFromTabTitle(title: string | undefined | null): string {
 export interface TabPrefill {
   profileUrl: string;
   fullName: string;
+  /** Text the user had highlighted on the profile, with line breaks. */
+  selectionText: string;
+}
+
+/** Reads only the user's current text selection in a tab, keeping line breaks. */
+export async function readSelection(tabId: number, frameId?: number): Promise<string> {
+  try {
+    const [r] = await chrome.scripting.executeScript({
+      target: { tabId, ...(frameId ? { frameIds: [frameId] } : {}) },
+      func: () => window.getSelection()?.toString() ?? "",
+    });
+    return typeof r?.result === "string" ? r.result.slice(0, 5000) : "";
+  } catch {
+    return "";
+  }
 }
 
 export function prefillFromTab(tab: { url?: string; title?: string } | undefined): TabPrefill | null {
   if (!tab?.url) return null;
   const url = normalizeProfileUrl(tab.url);
   if (!url.ok) return null;
-  return { profileUrl: url.normalized, fullName: nameFromTabTitle(tab.title) };
+  return { profileUrl: url.normalized, fullName: nameFromTabTitle(tab.title), selectionText: "" };
 }
 
 export async function readActiveTabPrefill(): Promise<TabPrefill | null> {
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    return prefillFromTab(tab);
+    const prefill = prefillFromTab(tab);
+    if (prefill && tab?.id !== undefined) prefill.selectionText = await readSelection(tab.id);
+    return prefill;
   } catch {
     return null;
   }

@@ -57,6 +57,30 @@ export function suggestCategory(text: string): Category | null {
   return null;
 }
 
+const SCHOOL = /\b(universit(?:y|ies|ät|é)|college|school|institute|academy|polytechnic|IIT|IIM|NIT|MIT)\b/i;
+const COMPANY_SUFFIX = /\b(inc|llc|ltd|limited|corp|corporation|gmbh|co|plc|pvt|llp|sa|ag)\.?$/i;
+const COUNTRY_OR_AREA =
+  /\b(area|region|metropolitan|remote|united states|united kingdom|india|canada|australia|germany|france|singapore|netherlands|ireland|uae|united arab emirates)\b/i;
+
+function isLocationLine(line: string): boolean {
+  if (COUNTRY_OR_AREA.test(line)) return true;
+  const parts = line.split(",").map((p) => p.trim());
+  if (parts.length < 2 || parts.length > 4 || COMPANY_SUFFIX.test(parts[parts.length - 1]!)) return false;
+  return parts.every((p) => /^[A-Z\u00C0-\u024F][\p{L}.'-]*(?:\s+[A-Z\u00C0-\u024F][\p{L}.'-]*){0,3}$/u.test(p));
+}
+
+/** The company box line after the headline: short, and not a school, location or count. */
+function findCompanyLine(lines: readonly string[]): string {
+  for (const line of lines) {
+    if (line.length > 80 || line.split(/\s+/).length > 8) continue;
+    if (SCHOOL.test(line) || isLocationLine(line)) continue;
+    if (/contact info|followers|connections|mutual|^·|^•/i.test(line)) continue;
+    if (/^\d/.test(line)) continue;
+    return trimCompanyTail(line);
+  }
+  return "";
+}
+
 /** Splits a headline such as "VP Engineering at Acme | Speaker" into role and company. */
 export function splitHeadline(headline: string): { role: string; company: string } {
   const first = headline.split(/\s+[|•]\s+|\s+\|\s*|\s*\|\s+/)[0] ?? "";
@@ -89,10 +113,14 @@ export function parseProfileText(text: string, knownName = ""): ParsedProfileTex
   }
 
   if (lines.length >= 2) {
+    // Profile top card: name, headline, then the company box, school, location, counts.
     const first = cleanName(lines[0]!);
     const startsWithName = !name || first.toLowerCase() === name.toLowerCase();
-    const headline = startsWithName ? lines[1]! : lines[0]!;
-    return { fullName: name || first, ...splitHeadline(headline) };
+    const rest = startsWithName ? lines.slice(1) : lines;
+    const headline = rest[0] ?? "";
+    const split = splitHeadline(headline);
+    const company = split.company || findCompanyLine(rest.slice(1));
+    return { fullName: name || first, role: split.role, company };
   }
 
   // Single line (Chrome's right-click selection text often drops line breaks).

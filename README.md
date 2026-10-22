@@ -9,7 +9,7 @@
 > - ✅ Turns them **green** when you confirm they accepted, and puts them in your follow-up queue.
 > - ✅ Prepares a personalized message from your templates for you to copy and paste.
 > - ✅ Reminds you about follow-ups (dashboard, toolbar badge, optional desktop notifications).
-> - ❌ Never sends invitations or messages, and never reads LinkedIn pages, cookies or your login.
+> - ❌ Never sends invitations or messages, and never reads your LinkedIn cookies or login. On a profile it only reads the text **you highlight**, when you right-click or click the icon.
 > - ❌ Can't detect acceptances on its own. **You confirm them** (see [How do I know they accepted?](#how-do-i-know-someone-accepted)).
 
 ---
@@ -65,13 +65,17 @@ Send your connection request on LinkedIn as usual. Then add the person in one of
 
 ### A. Right-click on their profile (fastest)
 
-1. On their LinkedIn profile, **highlight their name and headline**.
+1. On their LinkedIn profile, **highlight the top section**: drag from their name down past the headline, so the **company box** next to it (and any school or location) is included too.
 2. **Right-click** and choose **LinkedConnect → Add to LinkedConnect**.
 3. The popup opens with the **profile URL, name, role, company** and a **suggested category** filled in. Check them and click **Save connection**.
 
 <img src="docs/images/popup-add-from-selection.png" alt="Popup filled from highlighted text" width="360">
 
-**Headline doesn't name the company?** Many headlines don't (e.g. "Robotics, Construction, Automation"). Highlight the company name, for example in the box next to their name or in their Experience section. Then right-click and choose **Use highlighted text as company**. It goes into the same entry you started. **Use highlighted text as role** works the same way.
+The company is taken from the headline ("VP Engineering **at Acme**") or, if it isn't there, from the **company box**. School, location, follower counts and "Contact info" are skipped.
+
+**Company still missing or wrong?** Highlight just the company name, right-click, and choose **Use highlighted text as company**. It goes into the same entry you started. **Use highlighted text as role** works the same way.
+
+**Shortcut:** highlight the top section, then click the toolbar icon instead of right-clicking. The result is the same.
 
 You can also right-click **a link to someone's profile** anywhere on LinkedIn (search results, "More profiles") and choose **Add to LinkedConnect**.
 
@@ -209,14 +213,14 @@ Under **Default template by category**, choose which template each category star
 - **Uninstalling the extension deletes its data.** Download a backup regularly, and always before uninstalling.
 - Permissions, and why:
   - **Storage** and **alarms**: save your records and schedule reminders.
-  - **activeTab**: when you click the icon, read the current tab's address and title to fill in the URL and name.
-  - **contextMenus**: the right-click options. Chrome only passes the text you highlighted.
+  - **activeTab** and **scripting**: when you click the icon or a right-click option, read that tab's address and title and **only the text you highlighted** (with its line breaks, so name, headline and company can be told apart). Nothing else on the page is read.
+  - **contextMenus**: the right-click options.
   - **Notifications** (optional, asked only if you turn on desktop reminders).
-- No access to other websites, LinkedIn page content, cookies or browsing history. Nothing is sent anywhere.
+- No access to other websites, the rest of the LinkedIn page, cookies or browsing history. Nothing is sent anywhere.
 
 ## 11. FAQ and troubleshooting
 
-**The company didn't fill in.** The headline probably doesn't contain "at *Company*". Highlight the company name and right-click → **Use highlighted text as company**.
+**The company didn't fill in.** Make sure your highlight includes the company box next to the headline. If it still misses, highlight just the company name and right-click → **Use highlighted text as company**.
 
 **The popup closed when I switched tabs.** Chrome does this to every extension popup. Reopen it; what you typed is restored.
 

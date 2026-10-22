@@ -25,7 +25,7 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "permissions": ["storage", "alarms", "activeTab", "contextMenus"],
+  "permissions": ["storage", "alarms", "activeTab", "contextMenus", "scripting"],
   "optional_permissions": ["notifications"],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'"

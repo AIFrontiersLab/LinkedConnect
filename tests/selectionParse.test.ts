@@ -63,3 +63,29 @@ describe("category suggestion", () => {
     expect(suggestCategory("Software Engineer")).toBeNull();
   });
 });
+
+describe("highlighted top card with line breaks", () => {
+  it("takes the company from the company box when the headline has none", () => {
+    const text =
+      "Peter Kappes\n· 2nd\nRobotics, Construction, Automation, Tech | Humanoids & Robotics\nKappes 'n' Beans\nBoise State University\nBoise, Idaho, United States\n·\nContact info\n49,916 followers\n500+ connections";
+    expect(parseProfileText(text, "Peter Kappes")).toEqual({
+      fullName: "Peter Kappes",
+      role: "Robotics, Construction, Automation, Tech",
+      company: "Kappes 'n' Beans",
+    });
+  });
+
+  it("skips pronouns, schools, locations and mutual connections", () => {
+    const text =
+      "Sivasankar Natarajan\nHe/Him\n· 2nd\nTechnical Director | Cloud & AI\nAnna University\nAcme Corp, Inc.\nChennai, Tamil Nadu\nContact info\nAnurag and 3 other mutual connections";
+    expect(parseProfileText(text)).toEqual({ fullName: "Sivasankar Natarajan", role: "Technical Director", company: "Acme Corp, Inc" });
+  });
+
+  it("prefers 'at Company' in the headline", () => {
+    expect(parseProfileText("Jane Doe\nVP Engineering at Acme\nGlobex\nSan Francisco Bay Area").company).toBe("Acme");
+  });
+
+  it("works when the selection starts at the headline", () => {
+    expect(parseProfileText("Talent Partner\nInitech\nAustin, Texas", "Sam Lee")).toEqual({ fullName: "Sam Lee", role: "Talent Partner", company: "Initech" });
+  });
+});

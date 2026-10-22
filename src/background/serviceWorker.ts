@@ -13,7 +13,7 @@ import {
   type PlannedNotification,
 } from "../shared/reminders";
 import { hasNotificationPermission, openDashboard } from "../shared/navigation";
-import { nameFromTabTitle, savePendingPrefill, type PendingPrefill } from "../shared/tabPrefill";
+import { nameFromTabTitle, readSelection, savePendingPrefill, type PendingPrefill } from "../shared/tabPrefill";
 import { normalizeProfileUrl } from "../shared/profileUrl";
 import type { Database } from "../shared/types";
 
@@ -140,7 +140,7 @@ function addNotificationListeners() {
 }
 
 // ---- Right-click "Add to LinkedConnect" ----
-// Chrome passes only the page/link URL and the text the user highlighted; the page is never read.
+// Uses the page/link URL and the text the user highlighted; nothing else on the page is read.
 
 const MENU_ID = "lmc-add-contact";
 
@@ -174,9 +174,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   };
   // openPopup must be called synchronously within the click; fall back to the dashboard.
   const opened = chrome.action.openPopup ? chrome.action.openPopup().then(() => true, () => false) : Promise.resolve(false);
-  void savePendingPrefill(pending).then(async () => {
+  void (async () => {
+    // Chrome's selectionText has its line breaks removed; read the same selection with them kept.
+    if (pending.selectionText && tab?.id !== undefined) {
+      const withBreaks = await readSelection(tab.id, info.frameId);
+      if (withBreaks) pending.selectionText = withBreaks;
+    }
+    await savePendingPrefill(pending);
     if (!(await opened)) await openDashboard("#/add");
-  });
+  })();
 });
 
 // ---- Top-level listener registration ----
